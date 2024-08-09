@@ -1,0 +1,94 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft,faSquareCaretLeft, faLeftLong } from '@fortawesome/free-solid-svg-icons';
+import styles from './ReviewForm.module.css';
+
+const ReviewForm = () => {
+  const [rating, setRating] = useState<number | null>(null);
+  const [comment, setComment] = useState('');
+  const navigate = useNavigate();
+  const { courseId } = useParams<{ courseId: string }>();
+  const [userId, setUserId] = useState<string | null>(null); 
+  const [courseName, setCourseName] = useState<string | null>(null); 
+  
+  useEffect(() => {
+    const user_id2 = localStorage.getItem('user_id');
+    setUserId(user_id2);
+  }, []);
+
+  useEffect(() => {
+    const url = `http://localhost:3000/api/courses/${courseId}`;
+    const fetchCourse = async () => {
+      try {
+        const response = await axios.get(url);
+        console.log(response.data[0]);
+        setCourseName(response.data[0].name);
+      } catch (error) {
+        console.error('Error fetching course:', error);
+      }
+    };
+    fetchCourse();
+    }, [courseId]);
+
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    const url = `http://localhost:3000/api/courses/${courseId}/post-review`;    
+    try {
+      const payload = { 
+        rating: rating, 
+        review_text: comment, 
+        user_id: userId 
+    };
+      const response = await axios.post(url, payload);
+      setRating(null);
+      setComment('');
+      handleBack();
+    } catch (error) {
+      console.error('Error adding review:', error);
+    }
+  };
+
+  const handleBack = () => {
+    navigate('/courses');
+  };
+
+  return (
+    <div className={styles.page}>
+      <div className={styles.iconContainer}>
+          <FontAwesomeIcon onClick={handleBack} icon={faLeftLong} />
+      </div>
+    <div className={styles.formContainer}>
+      <form onSubmit={handleSubmit}>
+        <h2 className={styles.formTitle}>Review for {courseName}</h2>
+        <div className={styles.formField}>
+          <label className={styles.label}>Rating</label>
+          <input
+            type="number"
+            value={rating ?? ''}
+            onChange={(e) => setRating(Number(e.target.value))}
+            className={styles.input}
+            min={1}
+            max={5}
+          />
+        </div>
+        <div className={styles.formField}>
+          <label className={styles.label}>Comment</label>
+          <textarea
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            className={styles.textarea}
+            maxLength={500}
+          />
+        </div>
+        <div className={styles.buttonContainer}>
+            <button type="submit" className={styles.submitbutton} >Submit</button>
+        </div>
+      </form>
+    </div>
+    </div>
+  );
+}
+
+export default ReviewForm;
