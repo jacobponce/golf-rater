@@ -1,0 +1,102 @@
+.page {
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.course-container {
+    border: 2px solid #faf3dd;
+    background-color: #3a5a40;
+    border-radius: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin: 16px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .course-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+} 
+  .courses-title {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 0;
+      margin-bottom: 0;
+  }
+  .course-title-info {
+    font-size: 1.05em;
+  }
+
+  .course-name {
+    margin-right: 50px;
+    font-size:1.7em;
+  }
+  .course-container:hover {
+    transform: scale(1.01);
+  }
+  
+  .course-description {
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+  }
+
+  .course-description p {
+    margin: 0;
+  }
+
+  .course-container a {
+    color: #68b0ab;
+    text-decoration: underline;
+    display: block;
+    margin-right: 20px;
+    font-size: 1.05em;
+  }
+  .course-container a:hover {
+    color: #5a9a94;
+  }
+
+  .cplogo {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+  }
+
+  .review-title {
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-top: 16px;
+    margin-bottom: 0px;
+  }
+  
+  .review {
+    border: 1px solid #68b0ab;
+    border-radius: 10px;
+    margin-top: 8px;
+  }
+  .review-name {
+    font-weight: bold;
+    margin: 0;
+    padding: 0 20px;
+  }
+  .review p {
+    margin: 4px 0;
+    padding: 0 20px;
+  }
+  .reviews-container {
+    border-radius: 8px;
+    padding: 4px;
+    border: 3px solid #8fc0a9;
+    margin-bottom: 10px;
+  }
+
+  .scrollable-reviews {
+    max-height: 200px; /* Adjust the height as needed */
+    overflow-y: auto;
+  }
