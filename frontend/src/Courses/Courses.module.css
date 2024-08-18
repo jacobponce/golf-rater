@@ -40,11 +40,19 @@
   .course-container:hover {
     transform: scale(1.01);
   }
+
+  .buttons-container{
+    justify-content: space-between;
+    width: 100%;
+    display: flex;
+    padding: 0;
+  }
   
   .course-description {
     margin-top: 4px;
     display: flex;
     align-items: center;
+    gap: 5px;
   }
 
   .course-description p {
@@ -55,9 +63,9 @@
     color: #68b0ab;
     text-decoration: underline;
     display: block;
-    margin-right: 20px;
     font-size: 1.05em;
   }
+
   .course-container a:hover {
     color: #5a9a94;
   }
@@ -65,7 +73,8 @@
   .cplogo {
     width: 20px;
     height: 20px;
-    margin-left: 5px;
+    margin-left: 0px;
+    gap: 0px;
   }
 
   .review-title {
@@ -78,7 +87,6 @@
   .review {
     border: 1px solid #68b0ab;
     border-radius: 10px;
-    margin-top: 8px;
   }
   .review-name {
     font-weight: bold;

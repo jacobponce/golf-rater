@@ -3,6 +3,8 @@ import axios from 'axios';
 import styles from './Courses.module.css';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/cplogo.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComments, faGolfBallTee } from '@fortawesome/free-solid-svg-icons';
 
 
 interface Review {
@@ -23,6 +25,7 @@ interface Course {
   reviews: Review[];
   course_address_link: string;
   course_distance2poly: number;
+  course_tee_time_link: string;
 }
 
 const CoursesPage: React.FC = () => {
@@ -59,6 +62,7 @@ const CoursesPage: React.FC = () => {
                 console.log(review.user_id);
                 console.log(username);
                 return { ...review, username };
+
               })
             );
 
@@ -96,12 +100,24 @@ const CoursesPage: React.FC = () => {
                         <a href={course.course_address_link} target="_blank" rel="noopener noreferrer">
                             Directions
                         </a>
-                        <p className={styles["course-title-info"]}>{course.course_distance2poly} miles away from</p><img className={styles['cplogo']}src={logo} />
+                        <p>&nbsp;</p>
+                        <p className={styles["course-title-info"]}>{course.course_distance2poly} miles away from</p>
+                        <img className={styles['cplogo']}src={logo} />
                     </div>
                 </div>
                 {expandedCourseId === course.course_id && (
                     <>
-                        <button onClick={() => handleNavigateToReviewForm(course.course_id)}>Add Review</button>
+                        <div className={styles['buttons-container']}>
+                          <button onClick={() => handleNavigateToReviewForm(course.course_id)}>
+                            Add Review&nbsp;
+                            <FontAwesomeIcon icon={faComments} />  
+                          </button>
+                          <a href={course.course_tee_time_link} target="_blank" rel="noopener noreferrer">
+                            <button>
+                              Book A Tee Time&nbsp;
+                              <FontAwesomeIcon icon={faGolfBallTee} />                            </button>
+                          </a>
+                        </div>
                         <h3 className={styles['review-title']}>Reviews:</h3>
                         <div className={styles['reviews-container']}>
                           <div className={styles['scrollable-reviews']}>

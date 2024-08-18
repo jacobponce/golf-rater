@@ -1,6 +1,5 @@
 import { User } from '../types/User';
 import styles from './Home.module.css';
-import npc from '../assets/npc.png';
 import goat from '../assets/goat.png';
 
 interface HomeProps {
@@ -11,7 +10,7 @@ interface HomeProps {
     return (
         <div className={styles.page}>
             <div className={styles.backgroundImageContainer}>
-                <h1 className={styles.welcomeText}>Welcome, {user.username}!</h1>
+                <h1 className={styles.welcomeText}>Welcome!</h1>
             </div>
             <div className={styles.descriptionContainer}>
                 <div className={styles.descriptionText}>

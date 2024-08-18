@@ -18,6 +18,7 @@ const getCourses = (request, response) => {
       courses.address AS course_address,
       courses.address_link AS course_address_link,
       courses.distance2poly AS course_distance2poly,
+      courses.tee_time_link AS course_tee_time_link,
       json_agg(
         json_build_object(
           'review_id', reviews.id, 
@@ -42,7 +43,7 @@ const getCourses = (request, response) => {
 };
 
   const getCourseById = (request, response) => {
-    const id = parseInt(request.params.id)
+    const id = parseInt(request.params.id) // Checks for id within the current url
   
     pool.query('SELECT * FROM courses WHERE id = $1', [id], (error, results) => {
       if (error) {

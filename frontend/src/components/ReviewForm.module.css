@@ -70,3 +70,21 @@
     text-align: left;
     cursor: pointer;
   }
+  .stars {
+    display: flex;
+  }
+  
+  .filledStar {
+    color: gold;
+    cursor: pointer;
+  }
+  
+  .emptyStar {
+    color: lightgray;
+    cursor: pointer;
+  }
+  
+  .highlightedStar {
+    color: orange;
+    cursor: pointer;
+  }

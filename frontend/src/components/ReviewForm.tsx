@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft,faSquareCaretLeft, faLeftLong } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faSquareCaretLeft, faLeftLong, faStar } from '@fortawesome/free-solid-svg-icons';
 import styles from './ReviewForm.module.css';
 
 const ReviewForm = () => {
@@ -54,6 +54,10 @@ const ReviewForm = () => {
     navigate('/courses');
   };
 
+  const handleStarClick = (starRating: number) => {
+    setRating(starRating);
+  };
+
   return (
     <div className={styles.page}>
       <div className={styles.iconContainer}>
@@ -64,14 +68,16 @@ const ReviewForm = () => {
         <h2 className={styles.formTitle}>Review for {courseName}</h2>
         <div className={styles.formField}>
           <label className={styles.label}>Rating</label>
-          <input
-            type="number"
-            value={rating ?? ''}
-            onChange={(e) => setRating(Number(e.target.value))}
-            className={styles.input}
-            min={1}
-            max={5}
-          />
+          <div className={styles.stars}>
+            {[1, 2, 3, 4, 5].map((star) => (
+              <FontAwesomeIcon
+                key={star}
+                icon={faStar}
+                className={star <= (rating ?? 0) ? styles.filledStar : styles.emptyStar}
+                onClick={() => handleStarClick(star)}
+              />
+            ))}
+          </div>
         </div>
         <div className={styles.formField}>
           <label className={styles.label}>Comment</label>
