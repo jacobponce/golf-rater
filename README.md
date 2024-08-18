@@ -1,5 +1,17 @@
-# golf-rater
-Welcome to golf@ a golf rating and social website for college students!<br>
-<img width="400" alt="Screenshot 2024-08-09 at 11 06 34 AM" src="https://github.com/user-attachments/assets/573f9182-e659-4c25-b357-917c17d80276"><br>
-Discover nearby courses, leave reviews, and book tee times today!<br>
-<img width="400" alt="Screenshot 2024-08-09 at 11 05 47 AM" src="https://github.com/user-attachments/assets/07b0ea54-92cb-4805-8f04-c4b256db2756"><br>
+
+# golf @
+
+golf @ is a website designed to introduce college students to the game of golf! Find courses nearby and meet new people!
+## Screenshots
+
+<img width="700" alt="Screenshot 2024-08-15 at 9 00 30 PM" src="https://github.com/user-attachments/assets/c74c20aa-e5fa-433c-88c3-3aa2c5adbf1e">
+<p> </p>
+<img width="700" alt="Screenshot 2024-08-09 at 11 05 47 AM" src="https://github.com/user-attachments/assets/6aaf7ecc-fc47-4e2d-9f7d-4377624a8b91">
+
+
+## Tech Stack
+
+**Client:** React, Redux, TailwindCSS
+
+**Server:** Node, Express, PostgreSQL
+
