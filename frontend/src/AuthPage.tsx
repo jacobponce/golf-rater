@@ -39,20 +39,24 @@ const AuthPage = ({ onLogin }: { onLogin: any }) => {
   };
 
   return (
-    <div className="auth-container">
-      <form className="auth-form" onSubmit={handleSubmit}>
-        {!isLogin && (
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
-        )}
-        <input type={!isLogin ? "email": "text"}value={email} onChange={(e) => setEmail(e.target.value)} placeholder={isLogin ? "Email/Username" : "Email"} />
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <button type="submit">{isLogin ? 'Login' : 'Create Account'}</button>
-        <a className="toggle-link" onClick={toggleForm}>
-        {isLogin ? 'Sign Up' : 'Already Have an Account'}
-        </a>
-      </form>
-    
+    <div>
+      <div>
+        
+      </div>
+      <div className="auth-container">
+        <form className="auth-form" onSubmit={handleSubmit}>
+          {!isLogin && (
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
+          )}
+          <input type={!isLogin ? "email": "text"}value={email} onChange={(e) => setEmail(e.target.value)} placeholder={isLogin ? "Email/Username" : "Email"} />
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <button type="submit">{isLogin ? 'Login' : 'Create Account'}</button>
+          <a className="toggle-link" onClick={toggleForm}>
+          {isLogin ? 'Sign Up' : 'Already Have an Account'}
+          </a>
+        </form>
+      </div>
     </div>
   );
 };

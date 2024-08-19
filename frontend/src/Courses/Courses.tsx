@@ -123,6 +123,14 @@ const CoursesPage: React.FC = () => {
                 </div>
                 {expandedCourseId === course.course_id && (
                     <>  
+                        <div className={styles['course-description-small']}>
+                          <a href={course.course_address_link} target="_blank" rel="noopener noreferrer">
+                              Directions
+                          </a>
+                          <p>&nbsp;</p>
+                          <p className={styles["course-title-info"]}>{course.course_distance2poly} miles away from</p>
+                          <img className={styles['cplogo']}src={logo} />
+                        </div>
                         <div className={styles['buttons-container']}>
                           <button onClick={() => handleNavigateToReviewForm(course.course_id)}>
                             Add Review&nbsp;
@@ -134,7 +142,7 @@ const CoursesPage: React.FC = () => {
                               <FontAwesomeIcon icon={faGolfBallTee} />                            </button>
                           </a>
                         </div>
-                        <h3 className={styles['review-title']}>Average Rating: {course.averageRating.toFixed(1)} <FontAwesomeIcon icon={faStar}/>'s</h3>
+                        <h3 className={styles['review-title']}>Avg. Rating: {course.averageRating.toFixed(1)} <FontAwesomeIcon icon={faStar}/>'s</h3>
                         <div className={styles['reviews-container']}>
                           <div className={styles['scrollable-reviews']}>
                               {course.reviews.length > 0 ? (

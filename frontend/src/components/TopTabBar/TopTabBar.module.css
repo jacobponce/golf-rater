@@ -9,7 +9,7 @@
     border: 4px solid #8fc0a9;
     border-radius: 10px;
     padding: 0 20px; /* Ensure equal space on both sides */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    box-sizing: border-box;
 }
 
 .parent-container {
@@ -27,16 +27,14 @@
     will-change: filter;
     transition: filter 300ms;
     cursor: pointer;
-    /* Remove margin-left to balance the spacing */
 }
 
 .links-container {
     display: flex;
-    width: 390px;
+    width: 170px;
     height: 50px;
     justify-content: space-between;
     align-items: center;
-    /* Remove margin-right to balance the spacing */
 }
 
 .link a {
