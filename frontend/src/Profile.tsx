@@ -9,7 +9,7 @@ interface ProfileProps {
 const Profile: React.FC<ProfileProps> = ({user, onClick}) => {
     return (
         <div className={styles.page}>
-            <h1>Hi, {user.username}!</h1>
+            <h1>Hi, @{user.username}!</h1>
             <button onClick={onClick}>Logout</button>
         </div>
     );

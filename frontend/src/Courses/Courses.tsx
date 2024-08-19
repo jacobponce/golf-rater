@@ -4,7 +4,7 @@ import styles from './Courses.module.css';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/cplogo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComments, faGolfBallTee } from '@fortawesome/free-solid-svg-icons';
+import { faComments, faGolfBallTee, faStar } from '@fortawesome/free-solid-svg-icons';
 
 
 interface Review {
@@ -26,6 +26,7 @@ interface Course {
   course_address_link: string;
   course_distance2poly: number;
   course_tee_time_link: string;
+  averageRating: number;
 }
 
 const CoursesPage: React.FC = () => {
@@ -70,7 +71,7 @@ const CoursesPage: React.FC = () => {
             return { ...course, reviews: reviewsWithUsernames.length > 0 ? reviewsWithUsernames : [] };
           })
         );
-
+        calculateRating(coursesWithUsernames)
         setCourses(coursesWithUsernames);
       } catch (error) {
         console.error('Error fetching courses:', error);
@@ -87,6 +88,21 @@ const CoursesPage: React.FC = () => {
 
   const handleNavigateToReviewForm = (courseId: number) => {
     navigate(`/${courseId}/review`);
+  };
+
+  const calculateRating = (courses: Course[]) => {
+    courses.forEach(course => {
+      let sum = 0;
+      let count = 0;
+
+      course.reviews.forEach(review => {
+        sum += review.rating;
+        count++;
+      });
+
+      const averageRating = count > 0 ? sum/count : 0;
+      course.averageRating = averageRating;
+    })
   };
 
   return (
@@ -106,7 +122,7 @@ const CoursesPage: React.FC = () => {
                     </div>
                 </div>
                 {expandedCourseId === course.course_id && (
-                    <>
+                    <>  
                         <div className={styles['buttons-container']}>
                           <button onClick={() => handleNavigateToReviewForm(course.course_id)}>
                             Add Review&nbsp;
@@ -118,7 +134,7 @@ const CoursesPage: React.FC = () => {
                               <FontAwesomeIcon icon={faGolfBallTee} />                            </button>
                           </a>
                         </div>
-                        <h3 className={styles['review-title']}>Reviews:</h3>
+                        <h3 className={styles['review-title']}>Average Rating: {course.averageRating.toFixed(1)} <FontAwesomeIcon icon={faStar}/>'s</h3>
                         <div className={styles['reviews-container']}>
                           <div className={styles['scrollable-reviews']}>
                               {course.reviews.length > 0 ? (
