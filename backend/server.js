@@ -43,6 +43,7 @@ app.delete('/api/users/:id', db.deleteUser);
 app.get('/api/courses', coursesDb.getCourses);
 app.get('/api/courses/:id', coursesDb.getCourseById);
 app.post('/api/courses/:id/post-review', coursesDb.addReview);
+app.delete('/api/reviews/:review_id', coursesDb.deleteReview)
 app.get('/api/returnUser/:id', coursesDb.getUsernameById);
 
 app.listen(port, () => {

@@ -69,6 +69,20 @@ const getCourses = (request, response) => {
     );
   };
 
+  const deleteReview = (request, response) => {
+    const review_id = parseInt(request.params.review_id);
+    
+    pool.query(
+      'DELETE FROM reviews where id = $1', [review_id],
+      (error, results) => {
+        if (error){
+          throw error
+        }
+        response.status(200).send(`Review deleted with ID: ${review_id}`)
+      }
+    )
+  }
+
   const getUsernameById = (request, response) => {
     const id = parseInt(request.params.id)
   
@@ -84,6 +98,7 @@ const getCourses = (request, response) => {
     getCourses,
     getCourseById,
     addReview,
-    getUsernameById
+    getUsernameById,
+    deleteReview
   }
 

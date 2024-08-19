@@ -4,7 +4,7 @@ import styles from './Courses.module.css';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/cplogo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComments, faGolfBallTee, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faComments, faGolfBallTee, faStar, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 
 interface Review {
@@ -32,6 +32,7 @@ interface Course {
 const CoursesPage: React.FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [expandedCourseId, setExpandedCourseId] = useState<number | null>(null);
+  const currentUserId = parseInt(localStorage.getItem('user_id') || '0', 10);
 
   useEffect(() => {
     const fetchUsername = async (userId: number) => {
@@ -105,6 +106,22 @@ const CoursesPage: React.FC = () => {
     })
   };
 
+  const handleDeleteReview = async (reviewId: number) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/reviews/${reviewId}`);
+      setCourses(prevCourses => {
+        const updatedCourses = prevCourses.map(course => ({
+          ...course,
+          reviews: course.reviews.filter(review => review.review_id !== reviewId),
+        }));
+        calculateRating(updatedCourses);
+        return updatedCourses;
+      });
+    } catch (error) {
+      console.error('Error deleting review:', error);
+    }
+  };
+
   return (
     <div className={styles['page']}>
         <h1 className={styles['courses-title']}>Courses</h1>
@@ -147,10 +164,22 @@ const CoursesPage: React.FC = () => {
                           <div className={styles['scrollable-reviews']}>
                               {course.reviews.length > 0 ? (
                                   course.reviews.map(review => (
-                                      <div key={review.review_id} className={styles["review"]}>
+                                    <div key={review.review_id} className={styles["review"]}>
+                                      <div className={styles["review-content"]}>
+                                        <div>
                                           <p className={styles["review-name"]}>{review.username} - {review.rating}/5 stars</p>
                                           <p>{review.review_text}</p>
+                                        </div>
+                                        {review.user_id === currentUserId && (
+                                          <button className={styles["delete-button"]} onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleDeleteReview(review.review_id);
+                                          }}>
+                                            <FontAwesomeIcon icon={faTrashCan} />
+                                          </button>
+                                        )}
                                       </div>
+                                    </div>
                                   ))
                               ) : (
                                   <p className={styles["review-name"]}>No reviews yet.</p>
