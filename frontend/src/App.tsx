@@ -6,7 +6,6 @@ import { User } from './types/User';
 import TopTabBar from './components/TopTabBar/TopTabBar';
 import Home from './HomePage/Home';
 import Courses from './Courses/Courses';
-import Community from './Community';
 import Profile from './Profile';
 import ReviewForm from './components/ReviewForm';
 
@@ -59,7 +58,6 @@ function AppContent({ user, setUser }: { user: User, setUser: React.Dispatch<Rea
       <TopTabBar />
       <Routes>
         <Route path="/courses" element={<Courses />} />
-        <Route path="/community" element={<Community />} />
         <Route path="/profile" element={<Profile user={user} onClick={handleLogout}/>} />
         <Route path="/" element={<Home user={user} />} />    
         <Route path="/:courseId/review" element={<ReviewForm />} />    

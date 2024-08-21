@@ -6,7 +6,7 @@ interface HomeProps {
     user: User;
   }
 
-  const Home: React.FC<HomeProps> = ({ user }) => {
+  const Home: React.FC<HomeProps> = () => {
     return (
         <div className={styles.page}>
             <div className={styles.backgroundImageContainer}>

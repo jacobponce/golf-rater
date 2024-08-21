@@ -11,7 +11,7 @@
     padding-left: 16px;
     padding-right: 16px;
     margin: 16px 0;
-    /* cursor: pointer; */
+    cursor: pointer;
     transition: transform 0.2s;
     margin-left: 20px;
     margin-right: 20px;

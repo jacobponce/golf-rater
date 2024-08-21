@@ -1,17 +1,20 @@
-const {Sequelize, DataTypes} = require('sequelize')
-const sequelize = new Sequelize('postgres://me:ilovegolf@localhost:5432/api')
+const { Sequelize, DataTypes } = require('sequelize');
+require('dotenv').config();
+const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB } = process.env;
+
+// Use backticks for template literals
+const sequelize = new Sequelize(`postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}`);
 
 sequelize.authenticate().then(() => {
-    console.log(`Database connected to discover`)
+    console.log(`Database connected to ${POSTGRES_DB}`);
 }).catch((err) => {
-    console.log(err)
-})
+    console.log(err);
+});
 
-const db = {}
-db.Sequelize = Sequelize
-db.sequelize = sequelize
+const db = {};
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
 
-db.users = require('./userModel')(sequelize, DataTypes)
+db.users = require('./userModel')(sequelize, DataTypes);
 
-module.exports = db
-
+module.exports = db;

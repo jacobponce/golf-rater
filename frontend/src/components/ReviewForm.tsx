@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faSquareCaretLeft, faLeftLong, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faLeftLong, faStar } from '@fortawesome/free-solid-svg-icons';
 import styles from './ReviewForm.module.css';
 
 const ReviewForm = () => {
@@ -41,7 +41,7 @@ const ReviewForm = () => {
         review_text: comment, 
         user_id: userId 
     };
-      const response = await axios.post(url, payload);
+      await axios.post(url, payload);
       setRating(null);
       setComment('');
       handleBack();
