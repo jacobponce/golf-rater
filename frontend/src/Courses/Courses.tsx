@@ -37,7 +37,7 @@ const CoursesPage: React.FC = () => {
   useEffect(() => {
     const fetchUsername = async (userId: number) => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/returnUser/${userId}`);
+        const response = await axios.get(`http://143.198.230.147:3000/api/returnUser/${userId}`);
         console.log(response.data[0].username);
         return response.data[0].username;
       } catch (error) {
@@ -48,7 +48,7 @@ const CoursesPage: React.FC = () => {
 
     const fetchCourses = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/courses');
+        const response = await axios.get('http://143.198.230.147:3000/api/courses');
         const coursesData: Course[] = response.data;
         console.log(coursesData);
 

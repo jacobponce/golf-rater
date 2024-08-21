@@ -11,7 +11,7 @@ const AuthPage = ({ onLogin }: { onLogin: any }) => {
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    const url = isLogin ? 'http://localhost:3000/api/login' : 'http://localhost:3000/api/signup';
+    const url = isLogin ? 'http://143.198.230.147:3000/api/login' : 'http://143.198.230.147:3000/api/signup';
     try {
       const payload = isLogin ? { email, password } : { email, password, username };
       const response = await axios.post(url, payload);
