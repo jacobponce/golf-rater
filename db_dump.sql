@@ -179,7 +179,7 @@ COPY public.courses (id, name, city, state, address, address_link, distance2poly
 COPY public.reviews (id, course_id, review_text, rating, created_at, user_id) FROM stdin;
 10	1	This course was fyeeeeee	5	2024-08-03 12:11:05.988452	3
 11	1	Had a great time in a great course with mcditty times	5	2024-08-03 12:22:29.292583	3
-12	1	I'm himothy, course was too lite	1	2024-08-03 15:42:21.527128	8
+12	1	Im himothy, course was too lite	1	2024-08-03 15:42:21.527128	8
 13	5	joe mama	1	2024-08-03 19:14:42.242129	10
 14	1	Easy course to play	5	2024-08-03 19:17:13.515577	11
 24	4		5	2024-08-15 20:29:16.561889	4
