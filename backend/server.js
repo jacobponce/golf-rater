@@ -46,6 +46,6 @@ app.post('/api/courses/:id/post-review', coursesDb.addReview);
 app.delete('/api/reviews/:review_id', coursesDb.deleteReview)
 app.get('/api/returnUser/:id', coursesDb.getUsernameById);
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`Server is running on port ${port}`);
 });

@@ -19,7 +19,7 @@ const ReviewForm = () => {
   }, []);
 
   useEffect(() => {
-    const url = `http://localhost:3000/api/courses/${courseId}`;
+    const url = `http://143.198.230.147:3000/api/courses/${courseId}`;
     const fetchCourse = async () => {
       try {
         const response = await axios.get(url);
@@ -34,7 +34,7 @@ const ReviewForm = () => {
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    const url = `http://localhost:3000/api/courses/${courseId}/post-review`;    
+    const url = `http://143.198.230.147:3000/api/courses/${courseId}/post-review`;    
     try {
       const payload = { 
         rating: rating, 
