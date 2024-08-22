@@ -59,5 +59,7 @@
   
     .sideImage {
       margin-top: 20px; /* Add some spacing between the text and image */
+      max-width: 90%;
+      width: 90%;
     }
   }
