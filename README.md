@@ -11,7 +11,9 @@ golf @ is a website designed to introduce college students to the game of golf! 
 
 ## Tech Stack
 
-**Client:** React, Redux, TailwindCSS
+**Client:** React, TypeScript, TailwindCSS
 
 **Server:** Node, Express, PostgreSQL
+
+**Deployment:** Docker, Digital Ocean
 
