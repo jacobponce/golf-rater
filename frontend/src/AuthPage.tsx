@@ -7,13 +7,23 @@ const AuthPage = ({ onLogin }: { onLogin: any }) => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [isLogin, setIsLogin] = useState(true); // State to toggle between login and create account
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); // State for error message
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // State const for error message
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
+
+    const lowerCaseEmail = email.toLowerCase(); // ensure lowercase
+    const lowerCaseUsername = username.toLowerCase(); 
+
+    // Validate password length
+    if (password.length <= 10) {
+      setErrorMessage('Password must be more than 10 characters long');
+      return;
+    }
+
     const url = isLogin ? 'http://143.198.230.147:3000/api/login' : 'http://143.198.230.147:3000/api/signup';
     try {
-      const payload = isLogin ? { email, password } : { email, password, username };
+      const payload = isLogin ? { email: lowerCaseEmail, password } : { email: lowerCaseEmail, password, username: lowerCaseUsername };
       const response = await axios.post(url, payload);
       const userData = response.data;
       console.log(userData)
