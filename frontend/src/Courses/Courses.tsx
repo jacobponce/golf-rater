@@ -108,7 +108,7 @@ const CoursesPage: React.FC = () => {
 
   const handleDeleteReview = async (reviewId: number) => {
     try {
-      await axios.delete(`http://localhost:3000/api/reviews/${reviewId}`);
+      await axios.delete(`http://143.198.230.147:3000/api/reviews/${reviewId}`);
       setCourses(prevCourses => {
         const updatedCourses = prevCourses.map(course => ({
           ...course,
