@@ -177,14 +177,7 @@ COPY public.courses (id, name, city, state, address, address_link, distance2poly
 --
 
 COPY public.reviews (id, course_id, review_text, rating, created_at, user_id) FROM stdin;
-10	1	This course was fyeeeeee	5	2024-08-03 12:11:05.988452	3
-11	1	Had a great time in a great course with mcditty times	5	2024-08-03 12:22:29.292583	3
-12	1	Im himothy, course was too lite	1	2024-08-03 15:42:21.527128	8
-13	5	joe mama	1	2024-08-03 19:14:42.242129	10
 14	1	Easy course to play	5	2024-08-03 19:17:13.515577	11
-24	4		5	2024-08-15 20:29:16.561889	4
-25	1	Challenging course in great condition! Enjoyed seeing some goats.	5	2024-08-15 21:04:26.544188	14
-28	6	Never played here but looks chill	1	2024-08-18 21:30:16.286953	4
 \.
 
 
@@ -193,22 +186,7 @@ COPY public.reviews (id, course_id, review_text, rating, created_at, user_id) FR
 --
 
 COPY public.users (id, username, email, password, "createdAt", "updatedAt") FROM stdin;
-1	jacob	abruhim@me.com	$2b$10$oo5B84y07IYW98IHKCpTSOunIHZRep7xcJ3EQyymGpMtUxiKaz5HW	2024-07-24 22:23:52.211-07	2024-07-24 22:23:52.211-07
-2	bruh	bruh@bruh.com	$2b$10$ziL/B6pVxLV/lDv1QTv9P.AJTeM3KuXl8ys2Nh.8nc.4/mEaRO4.6	2024-07-24 22:28:08.659-07	2024-07-24 22:28:08.659-07
-3	second	jpunc@bruh.com	$2b$10$DTTxze5vtyPDBTo6SDuQ.OFH7JZM.RpmrpqJXct1jqKFVf49rVwqe	2024-07-27 02:06:48.544-07	2024-07-27 02:06:48.544-07
 4	me	jp@me.com	$2b$10$fxRyhKpiL1NUnH0IVKndjeYv/TifGWyuIvRA6ScL8PWg.TaqT/WpK	2024-07-27 02:28:59.937-07	2024-07-27 02:28:59.937-07
-5	mah long	mahlong@pingpong.com	$2b$10$obal1tlxGOS5VaqUJI797.WURP7EQOHoXJphCe1NIb24rK52AVbIC	2024-07-27 22:50:23.608-07	2024-07-27 22:50:23.608-07
-6	jacobbruh	me@me.com	$2b$10$h3zp2yM5wZB3wGF9tT1GU.ioKnfadYZDWqRI3VRwKPYrFCjo2o7Qq	2024-08-03 12:24:34.46-07	2024-08-03 12:24:34.46-07
-7	jacob1	bruh	$2b$10$HVaZNnNIYPs/k/6FMaPVE.SqKdwSzcbqDpcTzm/kuNSXiM4uWhb.2	2024-08-03 15:35:15.037-07	2024-08-03 15:35:15.037-07
-8	himothy	him@him.com	$2b$10$de96b8b.HxFjfn0/oUnln.Ozn.PwKSbDjhu4X763ivM91Rlbvx2LS	2024-08-03 15:41:42.416-07	2024-08-03 15:41:42.416-07
-9	jacob3	bruhme@bruh	$2b$10$ya2WxaXIlnAS/h2fjKGJs.cxWQ2y.ZvN42BZCYAKQuOMTEyqX94ee	2024-08-03 16:04:39.006-07	2024-08-03 16:04:39.006-07
-10	joemama	lpjunkmail07@gmail.com	$2b$10$Vkgyezpq4dakF0wTlyWqCOaJWx4mjfYScN/NCWudDyKOFXZojga2O	2024-08-03 19:14:02.833-07	2024-08-03 19:14:02.833-07
-11	bpunc	bytp@hotmail.com	$2b$10$GUm20Kk4lwZ/sv3PeMRX..T4behhRJK97wYBmKCpBueJ57HK3gFuW	2024-08-03 19:16:13.658-07	2024-08-03 19:16:13.658-07
-12	testform	jecnopj@yahoo.com	$2b$10$QwpQ3.cpSoCAUzKwJp4dPOaItFUi81oIRHoIQK1EHNkFu3IHmeJzO	2024-08-09 01:34:28.347-07	2024-08-09 01:34:28.347-07
-13	smiski	smiski@smiski.com	$2b$10$Gy8kC7S3A5ikFVfNbJfX/.uStVJ/dZe.uAjI5AzFO807BRbOcYALC	2024-08-09 01:48:22.996-07	2024-08-09 01:48:22.996-07
-14	GolfGuy	jpunc@me.com	$2b$10$NgKo.GALugtpdwT/nVIKsO1ZlSrH5Pj7Li/w7kOqabvupg.FSNoGO	2024-08-15 21:03:50.925-07	2024-08-15 21:03:50.925-07
-15	me2	lol@lols	$2b$10$Q2sPZSDmQ.hYRStfwJM5HuQxX2ek3XB7G5VzH2Ep4fCcKQcsYcfPG	2024-08-18 17:47:39.908-07	2024-08-18 17:47:39.908-07
-16	yarmesto	yasmine.armesto@gmail.com	$2b$10$B61G7U2lPaQebf95Y/eWieMjvYflnh3G2uHKFM.dz/qCmQslt3M/S	2024-08-19 21:06:15.152-07	2024-08-19 21:06:15.152-07
 \.
 
 
