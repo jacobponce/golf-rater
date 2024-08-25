@@ -17,3 +17,8 @@
 
 **Deployment:** Docker, Digital Ocean
 
+<script>
+  document.querySelectorAll('a[href^="http"]').forEach(anchor => {
+    anchor.setAttribute('target', '_blank');
+  });
+</script>
