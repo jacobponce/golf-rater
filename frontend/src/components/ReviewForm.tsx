@@ -12,14 +12,14 @@ const ReviewForm = () => {
   const { courseId } = useParams<{ courseId: string }>();
   const [userId, setUserId] = useState<string | null>(null); 
   const [courseName, setCourseName] = useState<string | null>(null); 
-  
+  const baseUrl = import.meta.env.VITE_API_URL
   useEffect(() => {
     const user_id2 = localStorage.getItem('user_id');
     setUserId(user_id2);
   }, []);
 
   useEffect(() => {
-    const url = `http://143.198.230.147:3000/api/courses/${courseId}`;
+    const url = `${baseUrl}/api/courses/${courseId}`;
     const fetchCourse = async () => {
       try {
         const response = await axios.get(url);
@@ -34,7 +34,7 @@ const ReviewForm = () => {
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    const url = `http://143.198.230.147:3000/api/courses/${courseId}/post-review`;    
+    const url = `${baseUrl}/api/courses/${courseId}/post-review`;    
     try {
       const payload = { 
         rating: rating, 

@@ -33,11 +33,11 @@ const CoursesPage: React.FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [expandedCourseId, setExpandedCourseId] = useState<number | null>(null);
   const currentUserId = parseInt(localStorage.getItem('user_id') || '0', 10);
-
+  const baseUrl = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const fetchUsername = async (userId: number) => {
       try {
-        const response = await axios.get(`http://143.198.230.147:3000/api/returnUser/${userId}`);
+        const response = await axios.get(`${baseUrl}/api/returnUser/${userId}`);
         console.log(response.data[0].username);
         return response.data[0].username;
       } catch (error) {
@@ -48,7 +48,7 @@ const CoursesPage: React.FC = () => {
 
     const fetchCourses = async () => {
       try {
-        const response = await axios.get('http://143.198.230.147:3000/api/courses');
+        const response = await axios.get(`${baseUrl}/api/courses`);
         const coursesData: Course[] = response.data;
         console.log(coursesData);
 
@@ -108,7 +108,7 @@ const CoursesPage: React.FC = () => {
 
   const handleDeleteReview = async (reviewId: number) => {
     try {
-      await axios.delete(`http://143.198.230.147:3000/api/reviews/${reviewId}`);
+      await axios.delete(`${baseUrl}/api/reviews/${reviewId}`);
       setCourses(prevCourses => {
         const updatedCourses = prevCourses.map(course => ({
           ...course,

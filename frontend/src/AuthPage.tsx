@@ -8,7 +8,7 @@ const AuthPage = ({ onLogin }: { onLogin: any }) => {
   const [username, setUsername] = useState('');
   const [isLogin, setIsLogin] = useState(true); // State to toggle between login and create account
   const [errorMessage, setErrorMessage] = useState<string | null>(null); // State const for error message
-
+  const baseUrl = import.meta.env.VITE_API_URL
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
@@ -21,7 +21,7 @@ const AuthPage = ({ onLogin }: { onLogin: any }) => {
       return;
     }
 
-    const url = isLogin ? 'http://143.198.230.147:3000/api/login' : 'http://143.198.230.147:3000/api/signup';
+    const url = isLogin ? `${baseUrl}/api/login` : `${baseUrl}/api/signup`;
     try {
       const payload = isLogin ? { email: lowerCaseEmail, password } : { email: lowerCaseEmail, password, username: lowerCaseUsername };
       const response = await axios.post(url, payload);

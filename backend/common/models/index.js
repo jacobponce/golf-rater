@@ -1,9 +1,9 @@
 const { Sequelize, DataTypes } = require('sequelize');
 require('dotenv').config();
-const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB } = process.env;
+const { POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_HOST } = process.env;
 
 // Use backticks for template literals
-const sequelize = new Sequelize(`postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}`);
+const sequelize = new Sequelize(`postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}`);
 
 sequelize.authenticate().then(() => {
     console.log(`Database connected to ${POSTGRES_DB}`);
