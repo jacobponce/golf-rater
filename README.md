@@ -1,7 +1,7 @@
 
 # golf @
 
-<a href="http://golfatcollege.com" to="_blank">golf@</a>
+<a href="http://golfatcollege.com" target="_blank">golf@</a>
 is a website designed to introduce college students to the game of golf! Find courses nearby and meet new people!
 ## Screenshots
 
