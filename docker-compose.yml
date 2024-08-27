@@ -8,8 +8,6 @@ services:
       - backend
     networks:
       - app-network
-    volumes:
-      - ./frontend/nginx.conf:/etc/nginx/conf.d/default.conf
 
   backend:
     build:
@@ -34,6 +32,27 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./db_dump.sql:/docker-entrypoint-initdb.d/db_dump.sql
+    networks:
+      - app-network
+    ports:
+      - "5432:5432"
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASS}
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/.htpasswd:/etc/nginx/.htpasswd
+    depends_on:
+      - pgadmin
     networks:
       - app-network
 

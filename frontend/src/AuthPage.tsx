@@ -26,9 +26,6 @@ const AuthPage = ({ onLogin }: { onLogin: any }) => {
       const payload = isLogin ? { email: lowerCaseEmail, password } : { email: lowerCaseEmail, password, username: lowerCaseUsername };
       const response = await axios.post(url, payload);
       const userData = response.data;
-      console.log(userData)
-      console.log(userData.user.username)
-      console.log(response.data.message)
       localStorage.setItem('token', userData.token);
       localStorage.setItem('username', userData.user.username);
       localStorage.setItem('email', userData.user.email);
@@ -50,10 +47,8 @@ const AuthPage = ({ onLogin }: { onLogin: any }) => {
 
   return (
     <div>
-      <div>
-        
-      </div>
       <div className="auth-container">
+        <h1>golf @</h1>
         <form className="auth-form" onSubmit={handleSubmit}>
           {!isLogin && (
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
