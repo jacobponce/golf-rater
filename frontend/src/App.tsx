@@ -14,7 +14,6 @@ function App() {
 
   const tokenCheck = () => {
     const token = localStorage.getItem('token');
-    console.log(token)
     if (token) {
       const username = localStorage.getItem('username') || 'John Doe';
       const email = localStorage.getItem('email') || 'bruh';

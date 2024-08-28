@@ -38,7 +38,6 @@ const CoursesPage: React.FC = () => {
     const fetchUsername = async (userId: number) => {
       try {
         const response = await axios.get(`${baseUrl}/api/returnUser/${userId}`);
-        console.log(response.data[0].username);
         return response.data[0].username;
       } catch (error) {
         console.error(`Error fetching username for user ID ${userId}:`, error);
@@ -50,7 +49,6 @@ const CoursesPage: React.FC = () => {
       try {
         const response = await axios.get(`${baseUrl}/api/courses`);
         const coursesData: Course[] = response.data;
-        console.log(coursesData);
 
         // Fetch usernames for each review
         const coursesWithUsernames = await Promise.all(
@@ -61,8 +59,6 @@ const CoursesPage: React.FC = () => {
             const reviewsWithUsernames = await Promise.all(
               validReviews.map(async (review) => {
                 const username = await fetchUsername(review.user_id);
-                console.log(review.user_id);
-                console.log(username);
                 return { ...review, username };
 
               })
