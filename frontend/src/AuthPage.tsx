@@ -48,7 +48,7 @@ const AuthPage = ({ onLogin }: { onLogin: any }) => {
   return (
     <div>
       <div className="auth-container">
-        <h1>golf @</h1>
+        <h1>golf @ bruh</h1>
         <form className="auth-form" onSubmit={handleSubmit}>
           {!isLogin && (
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
