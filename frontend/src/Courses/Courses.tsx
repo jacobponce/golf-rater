@@ -6,14 +6,13 @@ import logo from '../assets/cplogo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComments, faGolfBallTee, faStar, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
-
 interface Review {
   review_id: number;
   review_text: string;
   rating: number;
   created_at: string;
   user_id: number;
-  username?: string; // Add optional username field
+  username?: string;
 }
 
 interface Course {
@@ -32,8 +31,10 @@ interface Course {
 const CoursesPage: React.FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [expandedCourseId, setExpandedCourseId] = useState<number | null>(null);
+  const [sortCriterion, setSortCriterion] = useState<string>('name');
   const currentUserId = parseInt(localStorage.getItem('user_id') || '0', 10);
   const baseUrl = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchUsername = async (userId: number) => {
       try {
@@ -50,37 +51,50 @@ const CoursesPage: React.FC = () => {
         const response = await axios.get(`${baseUrl}/api/courses`);
         const coursesData: Course[] = response.data;
 
-        // Fetch usernames for each review
         const coursesWithUsernames = await Promise.all(
           coursesData.map(async (course) => {
-            // Filter out reviews with null user_id
             const validReviews = course.reviews.filter(review => review.user_id !== null);
 
             const reviewsWithUsernames = await Promise.all(
               validReviews.map(async (review) => {
                 const username = await fetchUsername(review.user_id);
                 return { ...review, username };
-
               })
             );
 
-            // If no valid reviews, return a course with an empty reviews array
             return { ...course, reviews: reviewsWithUsernames.length > 0 ? reviewsWithUsernames : [] };
           })
         );
-        calculateRating(coursesWithUsernames)
-        setCourses(coursesWithUsernames);
+
+        calculateRating(coursesWithUsernames);
+
+        const sortedCourses = sortCourses(coursesWithUsernames, sortCriterion);
+        setCourses(sortedCourses);
       } catch (error) {
         console.error('Error fetching courses:', error);
       }
     };
 
     fetchCourses();
-  }, []);
+  }, [sortCriterion]);
+
+  const sortCourses = (courses: Course[], criterion: string) => {
+    return courses.sort((a, b) => {
+      if (criterion === 'name') {
+        return a.course_name.localeCompare(b.course_name);
+      } else if (criterion === 'rating') {
+        return b.averageRating - a.averageRating;
+      } else if (criterion === 'distance') {
+        return a.course_distance2poly - b.course_distance2poly;
+      }
+      return 0;
+    });
+  };
 
   const handleExpand = (courseId: number) => {
     setExpandedCourseId(expandedCourseId === courseId ? null : courseId);
   };
+
   const navigate = useNavigate();
 
   const handleNavigateToReviewForm = (courseId: number) => {
@@ -97,9 +111,9 @@ const CoursesPage: React.FC = () => {
         count++;
       });
 
-      const averageRating = count > 0 ? sum/count : 0;
+      const averageRating = count > 0 ? sum / count : 0;
       course.averageRating = averageRating;
-    })
+    });
   };
 
   const handleDeleteReview = async (reviewId: number) => {
@@ -120,74 +134,83 @@ const CoursesPage: React.FC = () => {
 
   return (
     <div className={styles['page']}>
-        <h1 className={styles['courses-title']}>Courses</h1>
-        {courses.map(course => (
-            <div key={course.course_id} className={styles['course-container']} onClick={() => handleExpand(course.course_id)}>
-                <div className={styles['course-info']}>
-                    <h2 className={styles['course-name']}>{course.course_name}</h2>
-                    <div className={styles['course-description']}>
-                        <a href={course.course_address_link} target="_blank" rel="noopener noreferrer">
-                            Directions
-                        </a>
-                        <p>&nbsp;</p>
-                        <p className={styles["course-title-info"]}>{course.course_distance2poly} miles away from</p>
-                        <img className={styles['cplogo']}src={logo} />
-                    </div>
-                </div>
-                {expandedCourseId === course.course_id && (
-                    <>  
-                        <div className={styles['course-description-small']}>
-                          <a href={course.course_address_link} target="_blank" rel="noopener noreferrer">
-                              Directions
-                          </a>
-                          <p>&nbsp;</p>
-                          <p className={styles["course-title-info"]}>{course.course_distance2poly} miles away from</p>
-                          <img className={styles['cplogo']}src={logo} />
-                        </div>
-                        <div className={styles['buttons-container']}>
-                          <button onClick={() => handleNavigateToReviewForm(course.course_id)}>
-                            Add Review&nbsp;
-                            <FontAwesomeIcon icon={faComments} />  
-                          </button>
-                          <a href={course.course_tee_time_link} target="_blank" rel="noopener noreferrer">
-                            <button>
-                              Book A Tee Time&nbsp;
-                              <FontAwesomeIcon icon={faGolfBallTee} />                            </button>
-                          </a>
-                        </div>
-                        <h3 className={styles['review-title']}>Avg. Rating: {course.averageRating.toFixed(1)} <FontAwesomeIcon icon={faStar}/>'s</h3>
-                        <div className={styles['reviews-container']}>
-                          <div className={styles['scrollable-reviews']}>
-                              {course.reviews.length > 0 ? (
-                                  course.reviews.map(review => (
-                                    <div key={review.review_id} className={styles["review"]}>
-                                      <div className={styles["review-content"]}>
-                                        <div>
-                                          <p className={styles["review-name"]}>{review.username} - {review.rating}/5 stars</p>
-                                          <p>{review.review_text}</p>
-                                        </div>
-                                        {review.user_id === currentUserId && (
-                                          <button className={styles["delete-button"]} onClick={(e) => {
-                                            e.stopPropagation();
-                                            handleDeleteReview(review.review_id);
-                                          }}>
-                                            <FontAwesomeIcon icon={faTrashCan} />
-                                          </button>
-                                        )}
-                                      </div>
-                                    </div>
-                                  ))
-                              ) : (
-                                  <p className={styles["review-name"]}>No reviews yet.</p>
-                              )}
-                          </div>
-                        </div>
-                    </>
-                )}
+      <h1 className={styles['courses-title']}>Courses</h1>
+      <div className={styles['sort-container']}>
+        <label className={styles['sort-label']} htmlFor="sort">Sort by:</label>
+        <select id="sort" value={sortCriterion} onChange={(e) => setSortCriterion(e.target.value)}>
+          <option value="name">Name</option>
+          <option value="rating">Rating</option>
+          <option value="distance">Distance</option>
+        </select>
+      </div>
+      {courses.map(course => (
+        <div key={course.course_id} className={styles['course-container']} onClick={() => handleExpand(course.course_id)}>
+          <div className={styles['course-info']}>
+            <h2 className={styles['course-name']}>{course.course_name}</h2>
+            <div className={styles['course-description']}>
+              <a href={course.course_address_link} target="_blank" rel="noopener noreferrer">
+                Directions
+              </a>
+              <p>&nbsp;</p>
+              <p className={styles["course-title-info"]}>{course.course_distance2poly} miles away from</p>
+              <img className={styles['cplogo']} src={logo} />
             </div>
-        ))}
+          </div>
+          {expandedCourseId === course.course_id && (
+            <>
+              <div className={styles['course-description-small']}>
+                <a href={course.course_address_link} target="_blank" rel="noopener noreferrer">
+                  Directions
+                </a>
+                <p>&nbsp;</p>
+                <p className={styles["course-title-info"]}>{course.course_distance2poly} miles away from</p>
+                <img className={styles['cplogo']} src={logo} />
+              </div>
+              <div className={styles['buttons-container']}>
+                <button onClick={() => handleNavigateToReviewForm(course.course_id)}>
+                  Add Review&nbsp;
+                  <FontAwesomeIcon icon={faComments} />
+                </button>
+                <a href={course.course_tee_time_link} target="_blank" rel="noopener noreferrer">
+                  <button>
+                    Book A Tee Time&nbsp;
+                    <FontAwesomeIcon icon={faGolfBallTee} />
+                  </button>
+                </a>
+              </div>
+              <h3 className={styles['review-title']}>Avg. Rating: {course.averageRating.toFixed(1)} <FontAwesomeIcon icon={faStar} />'s</h3>
+              <div className={styles['reviews-container']}>
+                <div className={styles['scrollable-reviews']}>
+                  {course.reviews.length > 0 ? (
+                    course.reviews.map(review => (
+                      <div key={review.review_id} className={styles["review"]}>
+                        <div className={styles["review-content"]}>
+                          <div>
+                            <p className={styles["review-name"]}>{review.username} - {review.rating}/5 stars</p>
+                            <p>{review.review_text}</p>
+                          </div>
+                          {review.user_id === currentUserId && (
+                            <button className={styles["delete-button"]} onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeleteReview(review.review_id);
+                            }}>
+                              <FontAwesomeIcon icon={faTrashCan} />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p className={styles["review-name"]}>No reviews yet.</p>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      ))}
     </div>
-);
-}
+  );
+};
 
 export default CoursesPage;

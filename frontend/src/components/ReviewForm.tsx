@@ -34,6 +34,10 @@ const ReviewForm = () => {
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
+    if (rating===null){
+      alert("Please select a rating.");
+      return;
+    }
     const url = `${baseUrl}/api/courses/${courseId}/post-review`;    
     try {
       const payload = { 

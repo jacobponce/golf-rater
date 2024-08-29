@@ -123,6 +123,15 @@
     padding: 0.3em 0.5em;
     margin-right:10px
   }
+  .sort-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+    align-items: center;
+  }
+  .sort-label{
+    margin-right:10px;
+  }
 
   @media (max-width: 768px) {
     .course-description {
