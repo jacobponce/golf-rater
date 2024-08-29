@@ -139,7 +139,7 @@ const CoursesPage: React.FC = () => {
         <label className={styles['sort-label']} htmlFor="sort">Sort by:</label>
         <select id="sort" value={sortCriterion} onChange={(e) => setSortCriterion(e.target.value)}>
           <option value="name">Name</option>
-          <option value="rating">Rating</option>
+          <option value="rating">BOMBO</option>
           <option value="distance">Distance</option>
         </select>
       </div>
